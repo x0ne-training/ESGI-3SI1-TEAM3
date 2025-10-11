@@ -16,4 +16,20 @@ typedef struct {
 
 int tokenize(const char *expr, Token *tokens, int max_tokens);
 
+typedef enum {
+    NODE_NUMBER,
+    NODE_BINARY_OP
+} NodeType;
+
+typedef struct Node {
+    NodeType type;
+    double value; // 
+    char op;      // 
+    struct Node *left;
+    struct Node *right;
+} Node;
+
+Node* parse_expression(Token *tokens, int *pos, int count);
+void free_tree(Node *node);
+
 #endif
