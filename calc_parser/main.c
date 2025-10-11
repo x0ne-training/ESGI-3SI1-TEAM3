@@ -44,7 +44,8 @@ int main() {
     int count = tokenize(input, tokens, 64);
     int pos = 0;
     Node *tree = parse_expression(tokens, &pos, count);
-    print_tree(tree, 0);
+    double result = evaluate(tree);
+    printf("Résultat : %f\n", result);
     free_tree(tree);
     return 0;
 }

@@ -31,5 +31,6 @@ typedef struct Node {
 
 Node* parse_expression(Token *tokens, int *pos, int count);
 void free_tree(Node *node);
+double evaluate(Node *node);
 
 #endif
