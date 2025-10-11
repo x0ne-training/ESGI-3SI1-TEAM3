@@ -24,9 +24,16 @@ int tokenize(const char *expr, Token *tokens, int max_tokens) {
         } else if (expr[i] == ')') {
             tokens[j].type = TOKEN_PAREN_RIGHT;
             i++; j++;
-        } else {
-            i++; // ignore spaces
         }
+        else if (expr[i] == '^') {
+            tokens[j].type = TOKEN_OPERATOR;
+            tokens[j].op = expr[i];
+            i++; j++;
+        } 
+        else {
+            i++; // ignore espaces
+        }             
+
     }
     return j;
 }
@@ -36,6 +43,7 @@ int tokenize(const char *expr, Token *tokens, int max_tokens) {
 static Node* parse_primary(Token *tokens, int *pos, int count);
 static Node* parse_factor(Token *tokens, int *pos, int count);
 static Node* parse_term(Token *tokens, int *pos, int count);
+static Node* parse_power(Token *tokens, int *pos, int count);
 
 Node* parse_expression(Token *tokens, int *pos, int count) {
     return parse_term(tokens, pos, count);
@@ -59,9 +67,27 @@ static Node* parse_term(Token *tokens, int *pos, int count) {
 }
 
 static Node* parse_factor(Token *tokens, int *pos, int count) {
-    Node *node = parse_primary(tokens, pos, count);
+    Node *node = parse_power(tokens, pos, count);
     while (*pos < count && (tokens[*pos].type == TOKEN_OPERATOR) &&
            (tokens[*pos].op == '*' || tokens[*pos].op == '/')) {
+        char op = tokens[*pos].op;
+        (*pos)++;
+        Node *right = parse_primary(tokens, pos, count);
+        Node *new_node = malloc(sizeof(Node));
+        new_node->type = NODE_BINARY_OP;
+        new_node->op = op;
+        new_node->left = node;
+        new_node->right = right;
+        node = new_node;
+    }
+    return node;
+}
+
+/////gère la puissance, avec priorité plus haute que * et / 
+
+static Node* parse_power(Token *tokens, int *pos, int count) {
+    Node *node = parse_primary(tokens, pos, count);
+    while (*pos < count && tokens[*pos].type == TOKEN_OPERATOR && tokens[*pos].op == '^') {
         char op = tokens[*pos].op;
         (*pos)++;
         Node *right = parse_primary(tokens, pos, count);
@@ -109,6 +135,7 @@ double evaluate(Node *node) {
         case '-': return left - right;
         case '*': return left * right;
         case '/': return left / right;
+        case '^': return pow(left, right);
     }
     return 0;
 }
