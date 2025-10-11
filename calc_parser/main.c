@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "parser.h"
 
 /*int main() {
     printf("Hello, parser!\n");
@@ -7,8 +8,19 @@
 
 int main() {
     char input[256];
+    Token tokens[64];
     printf("Entrez une expression : ");
     fgets(input, sizeof(input), stdin);
-    printf("Vous avez entré : %s\n", input);
+    int count = tokenize(input, tokens, 64);
+    for (int i = 0; i < count; i++) {
+        if (tokens[i].type == TOKEN_NUMBER)
+            printf("Nombre: %f\n", tokens[i].value);
+        else if (tokens[i].type == TOKEN_OPERATOR)
+            printf("Opérateur: %c\n", tokens[i].op);
+        else if (tokens[i].type == TOKEN_PAREN_LEFT)
+            printf("Parenthèse gauche\n");
+        else if (tokens[i].type == TOKEN_PAREN_RIGHT)
+            printf("Parenthèse droite\n");
+    }
     return 0;
 }

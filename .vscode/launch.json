@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Parser",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/calc_parser/parser_exec",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/calc_parser",
+      "environment": [],
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "build parser"
+    }
+  ]
+}

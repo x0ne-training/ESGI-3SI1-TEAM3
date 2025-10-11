@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build parser",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "calc_parser/main.c",
+        "calc_parser/parser.c",
+        "-o",
+        "calc_parser/parser_exec",
+        "-lm"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
