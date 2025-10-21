@@ -100,7 +100,7 @@ void free_tree(Node *node) {
     free(node);
 }
 
-double evaluate(Node *node) {
+/*double evaluate(Node *node) {
     if (node->type == NODE_NUMBER) return node->value;
     double left = evaluate(node->left);
     double right = evaluate(node->right);
@@ -111,4 +111,4 @@ double evaluate(Node *node) {
         case '/': return left / right;
     }
     return 0;
-}
+}*/
