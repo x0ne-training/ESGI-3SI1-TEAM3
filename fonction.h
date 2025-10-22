@@ -15,5 +15,9 @@ float func_exponential(void);
 float func_sine(void);
 float func_cosine(void);
 float func_tangent(void);
+float func_percentage();
+float func_fibonacci();
+float func_pgcd();
+float func_pcm();
 
 #endif

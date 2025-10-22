@@ -258,6 +258,79 @@ float func_tangent(void) {
     return result;
 }
 
+float func_percentage() {
+    float total, portion;
+    printf("Entrez le montant total : ");
+    scanf("%f", &total);
+    printf("Entrez la portion : ");
+    scanf("%f", &portion);
+    if (total == 0) {
+        printf("Erreur : le montant total ne peut pas être zéro !\n");
+        return 0;
+    }
+    return (portion / total) * 100;
+}
 
+float func_fibonacci() {
+    int n;
+    printf("Entrez la position dans la séquence de Fibonacci (entier non négatif) : ");
+    scanf("%d", &n);
+    if (n < 0) {
+        printf("Erreur : position négative !\n");
+        return 0;
+    }
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    unsigned long long a = 0, b = 1, fib;
+    for (int i = 2; i <= n; ++i) {
+        fib = a + b;
+        a = b;
+        b = fib;
+    }
+    printf("Le nombre de Fibonacci à la position %d est %llu\n", n, fib);
+    return 0;
+}
+
+float func_pgcd() {
+    int a, b;
+    printf("Entrez le premier nombre entier : ");
+    scanf("%d", &a);
+    printf("Entrez le deuxième nombre entier : ");
+    scanf("%d", &b);
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    printf("Le PGCD est %d\n", a);
+    return 0;
+}
+
+float func_pcm() {
+    int a, b;
+    printf("Entrez le premier nombre entier : ");
+    scanf("%d", &a);
+    printf("Entrez le deuxième nombre entier : ");
+    scanf("%d", &b);
+    if (a == 0 || b == 0) {
+        printf("Erreur : le PPCM n'est pas défini pour zéro !\n");
+        return 0;
+    }
+    int original_a = a, original_b = b;
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    int gcd = a;
+    int lcm = (original_a / gcd) * original_b; 
+    printf("Le PPCM est %d\n", lcm);
+    return 0;
+}
 
 
