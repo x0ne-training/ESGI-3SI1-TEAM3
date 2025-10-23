@@ -1,10 +1,6 @@
 /*
  * ============================================================================
  * Fichier: affichage.c
- * Auteur: [Votre nom]
- * Description: Implémentation des fonctions d'affichage stylisé pour la
- *              calculatrice. Fournit des fonctions pour formatter les résultats
- *              avec des couleurs, bordures et une précision configurable.
  * ============================================================================
  */
 
@@ -16,8 +12,6 @@
  * ============================================================================
  * CODES COULEURS ANSI POUR TERMINAL
  * ============================================================================
- * Ces codes permettent de colorer le texte dans les terminaux compatibles.
- * Note: Fonctionne sur Linux/Mac et Windows 10+ avec support ANSI.
  */
 
 #define COULEUR_RESET   "\033[0m"      // Réinitialise toutes les couleurs
@@ -32,14 +26,6 @@
  * ============================================================================
  * FONCTION: afficher_bordure
  * ============================================================================
- * Affiche une ligne horizontale décorative de longueur LARGEUR_BORDURE.
- * Cette fonction est utilisée pour créer des séparateurs visuels entre
- * les différentes sections de l'affichage.
- * 
- * Algorithme:
- *   1. Boucle de 0 à LARGEUR_BORDURE
- *   2. Affiche le caractère spécifié à chaque itération
- *   3. Termine par un retour à la ligne
  */
 void afficher_bordure(char caractere) {
     // Boucle pour afficher LARGEUR_BORDURE fois le caractère
@@ -55,14 +41,6 @@ void afficher_bordure(char caractere) {
  * ============================================================================
  * FONCTION: afficher_titre
  * ============================================================================
- * Affiche un titre centré et encadré avec des bordures supérieure et inférieure.
- * Le titre est affiché en couleur bleue pour le mettre en évidence.
- * 
- * Algorithme:
- *   1. Affiche une bordure supérieure avec le caractère '='
- *   2. Centre le titre en calculant les espaces nécessaires
- *   3. Affiche le titre en couleur bleue
- *   4. Affiche une bordure inférieure
  */
 void afficher_titre(const char* titre) {
     // Bordure supérieure pour encadrer le titre
@@ -81,7 +59,6 @@ void afficher_titre(const char* titre) {
     // Affichage du titre en bleu gras
     printf("%s%s%s\n", COULEUR_BLEU, titre, COULEUR_RESET);
     
-    // Bordure inférieure pour fermer l'encadrement
     afficher_bordure('=');
 }
 
@@ -90,21 +67,6 @@ void afficher_titre(const char* titre) {
  * ============================================================================
  * FONCTION: afficher_resultat_stylee
  * ============================================================================
- * Fonction principale d'affichage stylisé des résultats de calcul.
- * Elle formate le résultat avec l'expression qui a été calculée, utilise
- * des couleurs pour améliorer la lisibilité et respecte la précision demandée.
- * 
- * Paramètres détaillés:
- *   - expression: L'expression mathématique sous forme de texte (ex: "5 + 3")
- *   - resultat: La valeur numérique calculée (ex: 8.0)
- *   - precision: Nombre de décimales à afficher (-1 = utiliser la valeur par défaut)
- * 
- * Algorithme:
- *   1. Vérifie et ajuste la précision si nécessaire
- *   2. Affiche une ligne de séparation
- *   3. Affiche l'expression entre guillemets
- *   4. Affiche le résultat avec la précision spécifiée en couleur cyan
- *   5. Affiche une ligne de séparation finale
  */
 void afficher_resultat_stylee(const char* expression, double resultat, int precision) {
     // Si precision est -1 ou invalide, utiliser la précision par défaut
@@ -116,27 +78,20 @@ void afficher_resultat_stylee(const char* expression, double resultat, int preci
     // Ligne de séparation avant le résultat pour le mettre en évidence
     afficher_bordure('-');
     
-    // Affichage de l'expression calculée entre guillemets
-    // Le format %s permet d'insérer la chaîne de caractères
+    // Affichage de l'expression calculée
     printf("  Expression calculée : \"%s\"\n", expression);
     
-    // Affichage du résultat avec la précision spécifiée
-    // %.*f permet d'utiliser une précision variable:
-    //   - * signifie que la précision est donnée comme argument
-    //   - f indique un nombre à virgule flottante
     // Le résultat est affiché en cyan pour le mettre en valeur
     printf("  %sRésultat%s            : %s%.*f%s\n", 
-           COULEUR_VERT,          // Début de la couleur verte pour "Résultat"
-           COULEUR_RESET,         // Fin de la couleur
-           COULEUR_CYAN,          // Début de la couleur cyan pour la valeur
-           precision,             // Nombre de décimales
-           resultat,              // La valeur à afficher
-           COULEUR_RESET);        // Fin de la couleur
+           COULEUR_VERT,          
+           COULEUR_RESET,         
+           COULEUR_CYAN,          
+           precision,             
+           resultat,              
+           COULEUR_RESET);        
     
-    // Ligne de séparation après le résultat
     afficher_bordure('-');
     
-    // Ligne vide pour espacer visuellement les calculs successifs
     printf("\n");
 }
 
@@ -145,13 +100,6 @@ void afficher_resultat_stylee(const char* expression, double resultat, int preci
  * ============================================================================
  * FONCTION: afficher_erreur_stylee
  * ============================================================================
- * Affiche un message d'erreur de manière visible et claire avec des couleurs
- * rouge vif pour attirer l'attention de l'utilisateur.
- * 
- * Algorithme:
- *   1. Affiche une bordure d'avertissement avec des '*'
- *   2. Affiche le message d'erreur en rouge gras
- *   3. Affiche une bordure de fermeture
  */
 void afficher_erreur_stylee(const char* message) {
     // Bordure supérieure avec des étoiles pour signaler une erreur
@@ -159,11 +107,10 @@ void afficher_erreur_stylee(const char* message) {
     afficher_bordure('*');
     
     // Affichage du message d'erreur en rouge gras
-    // Préfixe "ERREUR:" pour identifier clairement le type de message
     printf("%s  ERREUR: %s%s\n", 
-           COULEUR_ROUGE,    // Active la couleur rouge
-           message,          // Le message d'erreur
-           COULEUR_RESET);   // Désactive la couleur
+           COULEUR_ROUGE,    
+           message,          
+           COULEUR_RESET);   
     
     // Bordure inférieure pour fermer l'encadrement d'erreur
     afficher_bordure('*');
@@ -175,17 +122,6 @@ void afficher_erreur_stylee(const char* message) {
  * ============================================================================
  * FONCTION: obtenir_precision_utilisateur
  * ============================================================================
- * Demande à l'utilisateur de choisir la précision d'affichage des résultats.
- * Valide l'entrée pour s'assurer qu'elle est dans une plage acceptable (0-10).
- * 
- * Algorithme:
- *   1. Affiche un prompt demandant la précision
- *   2. Lit l'entrée de l'utilisateur
- *   3. Vérifie que la valeur est dans la plage [0, 10]
- *   4. Redemande si l'entrée est invalide
- *   5. Retourne la précision validée
- * 
- * Retour: int - La précision choisie (garantie entre 0 et 10)
  */
 int obtenir_precision_utilisateur(void) {
     int precision;
@@ -220,7 +156,7 @@ int obtenir_precision_utilisateur(void) {
         }
     } while (!entree_valide);  // Continue tant que l'entrée n'est pas valide
     
-    // Retourne la précision validée
+    
     return precision;
 }
 
@@ -229,14 +165,6 @@ int obtenir_precision_utilisateur(void) {
  * ============================================================================
  * FONCTION: afficher_aide
  * ============================================================================
- * Affiche l'aide pour l'utilisation du programme en ligne de commande.
- * Explique la syntaxe et donne des exemples concrets d'utilisation.
- * 
- * Cette fonction est appelée quand l'utilisateur lance le programme avec
- * des arguments invalides ou demande explicitement l'aide.
- * 
- * Format de la ligne de commande:
- *   ./programme <operation> <nombre1> [nombre2] [precision]
  */
 void afficher_aide(const char* nom_programme) {
     // Affichage du titre de l'aide

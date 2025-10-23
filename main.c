@@ -103,30 +103,6 @@ int main() {
  * ============================================================================
  * FONCTION: mode_ligne_commande
  * ============================================================================
- * Gère l'exécution des calculs passés en paramètres de ligne de commande.
- * Cette fonction analyse les arguments et appelle la fonction de calcul
- * appropriée, puis affiche le résultat de manière stylisée.
- * 
- * Paramètres:
- *   - argc: nombre d'arguments passés au programme
- *   - argv: tableau des arguments (argv[0] = nom du programme)
- * 
- * Retour: 
- *   - 0 si le calcul s'est bien déroulé
- *   - 1 en cas d'erreur (arguments invalides, opération inconnue, etc.)
- * 
- * Format attendu:
- *   argv[1] = opération (add, sub, mul, div, sqrt, etc.)
- *   argv[2] = premier nombre
- *   argv[3] = deuxième nombre (optionnel selon l'opération)
- *   argv[4] = précision (optionnel)
- * 
- * Algorithme:
- *   1. Vérifier le nombre minimum d'arguments
- *   2. Extraire l'opération et les nombres
- *   3. Déterminer la précision (par défaut ou spécifiée)
- *   4. Identifier et exécuter l'opération demandée
- *   5. Afficher le résultat de manière stylisée
  */
 int mode_ligne_commande(int argc, char *argv[]) {
     // Variables pour stocker les opérandes et le résultat
@@ -431,20 +407,6 @@ int mode_ligne_commande(int argc, char *argv[]) {
  * ============================================================================
  * FONCTION: mode_interactif
  * ============================================================================
- * Gère le mode interactif de la calculatrice (code original de vos partenaires).
- * L'utilisateur choisit une opération dans un menu et entre les nombres requis.
- * Cette fonction utilise maintenant l'affichage stylisé pour les résultats.
- * 
- * Retour: void
- * 
- * Algorithme:
- *   1. Demander à l'utilisateur la précision souhaitée
- *   2. Afficher le menu des opérations disponibles
- *   3. Lire le choix de l'utilisateur
- *   4. Exécuter l'opération correspondante
- *   5. Afficher le résultat de manière stylisée
- *   6. Demander si l'utilisateur veut continuer
- *   7. Répéter jusqu'à ce que l'utilisateur quitte
  */
 void mode_interactif(void) {
     char choix;
@@ -670,21 +632,6 @@ void mode_interactif(void) {
  * ============================================================================
  * FONCTION PRINCIPALE: main
  * ============================================================================
- * Point d'entrée du programme. Détermine le mode d'exécution en fonction
- * des arguments passés en ligne de commande.
- * 
- * Paramètres:
- *   - argc: nombre d'arguments (y compris le nom du programme)
- *   - argv: tableau des arguments sous forme de chaînes de caractères
- * 
- * Retour:
- *   - 0 si le programme s'est exécuté correctement
- *   - 1 en cas d'erreur
- * 
- * Algorithme:
- *   1. Vérifier s'il y a des arguments
- *   2. Si oui: lancer le mode ligne de commande
- *   3. Si non: lancer le mode interactif
  */
 int main(int argc, char *argv[]) {
     /*
@@ -713,12 +660,6 @@ int main(int argc, char *argv[]) {
         return mode_ligne_commande(argc, argv);
         
     } else {
-        /*
-         * MODE INTERACTIF
-         * ---------------
-         * Aucun argument fourni, on lance le mode interactif classique
-         * qui correspond au fonctionnement original du programme
-         */
         mode_interactif();
         return 0;
     }
