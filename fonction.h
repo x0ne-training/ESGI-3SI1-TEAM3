@@ -17,6 +17,9 @@ float func_cosine(void);
 float func_tangent(void);
 char* func_decimal_to_binary();
 int func_binary_to_decimal();
-
+float func_percentage();
+float func_fibonacci();
+float func_pgcd();
+float func_pcm();
 
 #endif
