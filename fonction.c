@@ -379,4 +379,27 @@ float func_pcm() {
     return 0;
 }
 
+float func_isprime() {
+    int nb, i;
+    int is_prime = 1; 
+    printf("Entrez un nombre entier positif : ");
+    scanf("%d", &nb);
+    if (nb <= 1) {
+        is_prime = 0; 
+    } else {
+        for (i = 2; i <= sqrt(nb); i++) {
+            if (nb % i == 0) {
+                is_prime = 0; 
+                break;
+            }
+        }
+    }
+    if (is_prime) {
+        printf("%d est un nombre premier.\n", nb);
+    } else {
+        printf("%d n'est pas un nombre premier.\n", nb);
+    }
+    return 0;
+}
+
 
