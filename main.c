@@ -9,7 +9,8 @@ int main() {
         printf("Sélectionner l'option que vous voulez utiliser :\n");
         printf("1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division\n" 
                "5 : Carré\n6 : Racine carrée\n7 : Puissance\n8 : Modulus\n9 : Factorielle\n"
-               "a : Logarithme\nb : Exponentielle\nc : Sinus\nd : Cosinus\ne : Tangente\n");
+               "a : Logarithme\nb : Exponentielle\nc : Sinus\nd : Cosinus\ne : Tangente\n"
+               "f : Décimal → Binaire\ng : Binaire → Décimal\n");
         printf("Entrez votre choix : ");
         scanf(" %c", &choix);
 
@@ -56,6 +57,12 @@ int main() {
             case 'e':
                 printf("Résultat : %f\n", func_tangent());
                 break;
+            case 'f':
+                printf("Résultat : %s\n", func_decimal_to_binary());
+                break;
+            case 'g':
+                printf("Résultat : %d\n", func_binary_to_decimal());
+                break; 
             default:
                 printf("Option invalide.\n");
                 break;
