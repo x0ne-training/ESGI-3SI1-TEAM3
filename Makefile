@@ -1,114 +1,89 @@
-# ============================================================
-# Makefile - Projet C complet avec dépendances automatiques
-# ============================================================
+# Makefile - Projet Calculatrice en C
 
-# Nom de l'exécutable final
-EXEC = calculatrice
+# Configuration du projet
+EXEC     = calculatrice
+CC       = gcc
+CFLAGS   = -Wall -Wextra -std=c11
+LDFLAGS  = -lm
 
-# Compilateur 	
-CC = gcc
+# Recherche automatique des fichiers
+SRC      = $(wildcard *.c)
+OBJ      = $(SRC:.c=.o)
+HEADERS  = $(wildcard *.h)
 
-# Options de compilation standard
-# -Wall: Active tous les avertissements
-# -Wextra: Active des avertissements supplémentaires
-# -std=c11: Utilise le standard C11 (plus moderne que C99)
-CFLAGS = -Wall -Wextra -std=c11
+# Couleurs pour l'affichage (optionnel)
+RESET    = \033[0m
+BOLD     = \033[1m
+GREEN    = \033[32m
+BLUE     = \033[34m
+YELLOW   = \033[33m
+RED      = \033[31m
 
-# Bibliothèques à lier
-# -lm: Bibliothèque mathématique (OBLIGATOIRE pour sqrt, pow, sin, cos, log, exp, etc.)
-LDFLAGS = -lm
+# RÈGLES PRINCIPALES
 
-# Liste des fichiers sources (recherche automatique de tous les .c)
-SRC = $(wildcard *.c)
-
-# Liste des fichiers objets générés à partir des .c
-OBJ = $(SRC:.c=.o)
-
-# Liste des fichiers d'en-tête
-HEADERS = $(wildcard *.h)
-
-# ============================================================
 # Règle par défaut : compilation complète
-# ============================================================
 all: $(EXEC)
-	@echo "✅ Compilation terminée avec succès !"
+	@echo "$(GREEN)✅ Compilation terminée avec succès !$(RESET)"
 
-# ============================================================
-# Règle pour construire l'exécutable
-# ============================================================
+# Construction de l'exécutable
 $(EXEC): $(OBJ)
-	@echo "🔧 Édition des liens..."
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
-	@echo "📦 Exécutable créé : $(EXEC)"
+	@echo "$(BLUE)🔧 Édition des liens...$(RESET)"
+	@$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+	@echo "$(GREEN)📦 Exécutable créé : $(EXEC)$(RESET)"
 
-# ============================================================
-# Règle de compilation des fichiers .c en .o
-# $< : premier fichier dépendance (le .c)
-# $@ : nom de la cible (le .o)
-# ============================================================
+# Compilation des fichiers .c en .o
 %.o: %.c $(HEADERS)
-	@echo "🧩 Compilation de $< ..."
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(YELLOW)🧩 Compilation de $<...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-# ============================================================
-# Règle pour exécuter le programme compilé
-# ============================================================
+# RÈGLES D'EXÉCUTION
+
+# Exécuter le programme
 run: $(EXEC)
-	@echo "🚀 Exécution du programme :"
+	@echo "$(BLUE)🚀 Exécution du programme :$(RESET)"
 	@./$(EXEC)
 
-# ============================================================
-# Règle de compilation en mode debug
-# -g: Ajoute les symboles de débogage (pour gdb)
-# -O0: Désactive les optimisations
-# -DDEBUG: Définit la macro DEBUG
-# ============================================================
+# MODES DE COMPILATION
+
+# Mode debug avec symboles
 debug: CFLAGS += -g -O0 -DDEBUG
 debug: clean all
-	@echo "🐞 Compilation en mode débogage terminée."
-	@echo "💡 Utilisez 'gdb ./$(EXEC)' pour déboguer"
+	@echo "$(GREEN)🐞 Compilation en mode débogage terminée.$(RESET)"
+	@echo "$(YELLOW)💡 Utilisez 'gdb ./$(EXEC)' pour déboguer$(RESET)"
 
-# ============================================================
-# Règle de compilation optimisée (release)
-# -O2: Active les optimisations de niveau 2
-# -DNDEBUG: Désactive les assertions
-# ============================================================
+# Mode release optimisé
 release: CFLAGS += -O2 -DNDEBUG
 release: clean all
-	@echo "🚀 Version optimisée compilée avec succès !"
+	@echo "$(GREEN)🚀 Version optimisée compilée avec succès !$(RESET)"
 
-# ============================================================
-# Règle pour nettoyer les fichiers générés
-# ============================================================
+# RÈGLES DE NETTOYAGE
+
+# Nettoyage standard
 clean:
-	@echo "🧹 Nettoyage des fichiers objets et exécutables..."
+	@echo "$(YELLOW)🧹 Nettoyage des fichiers générés...$(RESET)"
 	@rm -f $(OBJ) $(EXEC)
-	@echo "✨ Nettoyage terminé !"
+	@echo "$(GREEN)✨ Nettoyage terminé !$(RESET)"
 
-# ============================================================
-# Règle pour tout reconstruire depuis zéro
-# ============================================================
+# Reconstruction complète
 rebuild: clean all
-	@echo "🔄 Reconstruction complète terminée !"
+	@echo "$(GREEN)🔄 Reconstruction complète terminée !$(RESET)"
 
-# Alternative : re (raccourci)
+# Alias pour rebuild
 re: rebuild
 
-# ============================================================
-# Règle pour vérifier la syntaxe sans compiler
-# ============================================================
-check:
-	@echo "🔍 Vérification de la syntaxe..."
-	$(CC) $(CFLAGS) -fsyntax-only $(SRC)
-	@echo "✅ Vérification terminée !"
+# RÈGLES UTILITAIRES
 
-# ============================================================
-# Règle pour afficher les informations de compilation
-# ============================================================
+# Vérification syntaxique
+check:
+	@echo "$(BLUE)🔍 Vérification de la syntaxe...$(RESET)"
+	@$(CC) $(CFLAGS) -fsyntax-only $(SRC)
+	@echo "$(GREEN)✅ Vérification terminée !$(RESET)"
+
+# Affichage des informations
 info:
-	@echo "════════════════════════════════════════"
-	@echo "📋 Informations du projet"
-	@echo "════════════════════════════════════════"
+	@echo "$(BOLD)════════════════════════════════════════$(RESET)"
+	@echo "$(BOLD)📋 Informations du projet$(RESET)"
+	@echo "$(BOLD)════════════════════════════════════════$(RESET)"
 	@echo "Compilateur    : $(CC)"
 	@echo "Flags          : $(CFLAGS)"
 	@echo "Bibliothèques  : $(LDFLAGS)"
@@ -116,31 +91,26 @@ info:
 	@echo "Objets         : $(OBJ)"
 	@echo "Headers        : $(HEADERS)"
 	@echo "Exécutable     : $(EXEC)"
-	@echo "════════════════════════════════════════"
+	@echo "$(BOLD)════════════════════════════════════════$(RESET)"
 
-# ============================================================
-# Règle pour afficher l'aide
-# ============================================================
+# Affichage de l'aide
 help:
-	@echo "════════════════════════════════════════"
-	@echo "📖 Commandes disponibles"
-	@echo "════════════════════════════════════════"
-	@echo "make          - Compile le projet"
-	@echo "make run      - Compile et exécute"
-	@echo "make debug    - Compile en mode debug"
-	@echo "make release  - Compile en mode optimisé"
-	@echo "make clean    - Supprime les fichiers générés"
-	@echo "make rebuild  - Nettoie et recompile tout"
-	@echo "make check    - Vérifie la syntaxe"
-	@echo "make info     - Affiche les infos du projet"
-	@echo "make help     - Affiche cette aide"
-	@echo "════════════════════════════════════════"
+	@echo "$(BOLD)════════════════════════════════════════$(RESET)"
+	@echo "$(BOLD)📖 Commandes disponibles$(RESET)"
+	@echo "$(BOLD)════════════════════════════════════════$(RESET)"
+	@echo "$(GREEN)make$(RESET)          - Compile le projet"
+	@echo "$(GREEN)make run$(RESET)      - Compile et exécute"
+	@echo "$(GREEN)make debug$(RESET)    - Compile en mode debug"
+	@echo "$(GREEN)make release$(RESET)  - Compile en mode optimisé"
+	@echo "$(GREEN)make clean$(RESET)    - Supprime les fichiers générés"
+	@echo "$(GREEN)make rebuild$(RESET)  - Nettoie et recompile tout"
+	@echo "$(GREEN)make check$(RESET)    - Vérifie la syntaxe"
+	@echo "$(GREEN)make info$(RESET)     - Affiche les infos du projet"
+	@echo "$(GREEN)make help$(RESET)     - Affiche cette aide"
+	@echo "$(BOLD)════════════════════════════════════════$(RESET)"
 
-# ============================================================
-# Déclare les cibles qui ne sont pas des fichiers
-# ============================================================
+# DÉCLARATION DES CIBLES PHONY
 .PHONY: all run debug release clean rebuild re check info help
 
-# ============================================================
-# Fin du Makefile
-# ============================================================
+
+# FIN DU MAKEFILE
