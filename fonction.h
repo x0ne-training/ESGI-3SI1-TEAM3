@@ -19,5 +19,6 @@ float func_percentage();
 float func_fibonacci();
 float func_pgcd();
 float func_pcm();
+float func_isprime();
 
 #endif
