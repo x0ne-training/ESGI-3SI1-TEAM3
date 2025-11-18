@@ -295,6 +295,49 @@ float func_fibonacci() {
     return 0;
 }
 
+char* func_decimal_to_binary() {
+    static char binaire[33];
+    int decimal;
+
+    printf("Entrez un nombre décimal (entier) : ");
+    scanf("%d", &decimal);
+
+    if (decimal == 0) {
+        strcpy(binaire, "0");
+        return binaire;
+    }
+
+    char temp[33];
+    int i = 0;
+
+    while (decimal > 0) {
+        temp[i++] = (decimal % 2) + '0';
+        decimal /= 2;
+    }
+    temp[i] = '\0';
+
+    for (int j = 0; j < i; j++) {
+        binaire[j] = temp[i - j - 1];
+    }
+    binaire[i] = '\0';
+
+    return binaire;
+}
+
+int func_binary_to_decimal() {
+    char binaire[33];
+    printf("Entrez un nombre binaire : ");
+    scanf("%s", binaire);
+
+    int decimal = 0;
+
+    for (int i = 0; binaire[i] != '\0'; i++) {
+        decimal = decimal * 2 + (binaire[i] - '0');
+    }
+
+    return decimal;
+}
+
 float func_pgcd() {
     int a, b;
     printf("Entrez le premier nombre entier : ");
