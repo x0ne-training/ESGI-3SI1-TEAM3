@@ -305,4 +305,40 @@ int func_binary_to_decimal() {
     return decimal;
 }
 
+char* func_decimal_to_hexadecimal() {
+    static char hexa[20];
+    int decimal;
+
+    printf("Entrez un nombre décimal (entier) : ");
+    scanf("%d", &decimal);
+
+    if (decimal == 0) {
+        strcpy(hexa, "0");
+        return hexa;
+    }
+
+    char temp[20];
+    int i = 0;
+
+    while (decimal > 0) {
+        int reste = decimal % 16;
+
+        if (reste < 10)
+            temp[i++] = reste + '0';
+        else
+            temp[i++] = (reste - 10) + 'A';
+
+        decimal /= 16;
+    }
+
+    temp[i] = '\0';
+
+    for (int j = 0; j < i; j++) {
+        hexa[j] = temp[i - j - 1];
+    }
+    hexa[i] = '\0';
+
+    return hexa;
+}
+
 

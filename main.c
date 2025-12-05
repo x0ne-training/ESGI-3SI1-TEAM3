@@ -62,7 +62,10 @@ int main() {
                 break;
             case 'g':
                 printf("Résultat : %d\n", func_binary_to_decimal());
-                break; 
+                break;
+            case 'h':
+                printf("Résultat : %s\n", func_decimal_to_hexadecimal());
+                break;
             default:
                 printf("Option invalide.\n");
                 break;

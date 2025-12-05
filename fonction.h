@@ -16,6 +16,7 @@ float func_sine(void);
 float func_cosine(void);
 float func_tangent(void);
 char* func_decimal_to_binary();
+char* func_decimal_to_hexadecimal();
 int func_binary_to_decimal();
 
 
