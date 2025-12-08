@@ -1,0 +1,27 @@
+# Fichiers à ne pas pousser sur Git
+manuelle.txt
+
+# Dossier VSCode
+.vscode/
+
+# Fichiers compilés
+*.o
+*.exe
+calculatrice
+calculatrice_gui
+calculatrice_gui_simple
+
+# Fichiers temporaires
+*~
+*.tmp
+*.swp
+
+# Logs
+*.log
+
+# Core dumps
+core
+core.*
+
+# Fichiers de configuration locaux
+config.local.h

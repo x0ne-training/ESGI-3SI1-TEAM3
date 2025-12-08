@@ -415,12 +415,11 @@ void mode_interactif(void) {
     char expression[256];
     
     /*
-     * DEMANDE DE LA PRECISION AU DEBUT
-     * ---------------------------------
-     * L'utilisateur choisit une fois la précision qui sera utilisée
-     * pour tous les calculs de la session
+     * UTILISATION DE LA PRECISION PAR DEFAUT
+     * ---------------------------------------
+     * La précision est fixée à la valeur par défaut sans demander à l'utilisateur
      */
-    int precision = obtenir_precision_utilisateur();
+    int precision = PRECISION_DEFAUT;
     
     /*
      * AFFICHAGE DU TITRE DE LA CALCULATRICE
